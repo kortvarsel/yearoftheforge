@@ -1,6 +1,6 @@
 import "./App.css";
 import useSpreadsheet from "./helpers/UseSpreadsheet";
-import { SpreadsheetProvider } from "./contexts/Test";
+import { SpreadsheetProvider } from "./contexts/UseSpreadsheetContext";
 import Standings from "./components/Standings";
 
 const App = () => {
