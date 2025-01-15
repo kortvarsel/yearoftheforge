@@ -37,6 +37,11 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Build with environment variables
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_DOCUMENT_KEY: ${{ secrets.VITE_DOCUMENT_KEY }}
+          VITE_SHEET_OVERVIEW: ${{ secrets.VITE_SHEET_OVERVIEW }}
       - name: Build
         run: npm run build
       - name: Setup Pages
