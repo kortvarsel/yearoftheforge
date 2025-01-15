@@ -1,7 +1,22 @@
 import { useEffect, useState } from "react";
-import { useSpreadsheetContext } from "../contexts/useSpreadsheetContext";
+import { useSpreadsheetContext } from "../contexts/Test";
 import useSheet from "../helpers/UseSheet";
 import ValueCell from "./ValueCell";
+
+const isOrderPriorityHighLow = {
+  Position: false,
+  "Draft Pos": false,
+  "FC-Score (Draft)": true,
+  "FC-Score": true,
+  Budget: true,
+  Released: true,
+  "OC-avg/slot": true,
+  "OC-avg/release": true,
+  "Released (CPK)": true,
+  "FC-avg/CPK-slot": true,
+  "Diff (draft vs final)": true,
+  "CPK-Points": true,
+};
 
 type Categories =
   | "Position"
@@ -28,10 +43,18 @@ const Standings = () => {
   };
 
   useEffect(() => {
-    rows?.sort((a, b) => a[sortBy] - b[sortBy]);
+    rows?.sort((a, b) =>
+      isOrderPriorityHighLow[sortBy]
+        ? b[sortBy] - a[sortBy]
+        : a[sortBy] - b[sortBy],
+    );
   }, [rows, sortBy]);
 
-  rows?.sort((a, b) => a[sortBy] - b[sortBy]);
+  rows?.sort((a, b) =>
+    isOrderPriorityHighLow[sortBy]
+      ? b[sortBy] - a[sortBy]
+      : a[sortBy] - b[sortBy],
+  );
 
   if (!spreadsheet || !rows || !headers) return <>Sheet not found!</>;
 

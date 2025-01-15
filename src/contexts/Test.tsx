@@ -1,6 +1,7 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { createContext, useContext, ReactNode } from "react";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const SpreadsheetContext = createContext<{
   spreadsheet?: GoogleSpreadsheet;
 }>({
@@ -21,4 +22,5 @@ export const SpreadsheetProvider = ({
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useSpreadsheetContext = () => useContext(SpreadsheetContext);
