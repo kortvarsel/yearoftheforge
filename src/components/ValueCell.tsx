@@ -1,3 +1,5 @@
+import { sortOrderAscending } from "../types/StandingsTypes";
+
 const parseCellValue = (value: string) => {
   const parsedComma = value?.replace(",", "."); // Handle comma
   const parsedNegativeValue = parsedComma?.replace(/[−]/g, "-"); // Handle minus signs
@@ -5,21 +7,6 @@ const parseCellValue = (value: string) => {
   const isNumber = !isNaN(parseFloat(parsedNegativeValue));
   if (isNumber) return parseFloat(parsedNegativeValue);
   return parsedNegativeValue;
-};
-
-const isOrderPriorityHighLow = {
-  Position: false,
-  "Draft Pos": false,
-  "FC-Score (Draft)": true,
-  "FC-Score": true,
-  Budget: true,
-  Released: true,
-  "OC-avg/slot": true,
-  "OC-avg/release": true,
-  "Released (CPK)": true,
-  "FC-avg/CPK-slot": true,
-  "Diff (draft vs final)": true,
-  "CPK-Points": true,
 };
 
 const ValueCell = ({
@@ -50,14 +37,10 @@ const ValueCell = ({
         return parsedVal;
       })
       .filter((v) => !isNaN(v));
-    const max = isOrderPriorityHighLow[
-      header as keyof typeof isOrderPriorityHighLow
-    ]
+    const max = sortOrderAscending[header as keyof typeof sortOrderAscending]
       ? Math.max(...values)
       : Math.min(...values);
-    const min = isOrderPriorityHighLow[
-      header as keyof typeof isOrderPriorityHighLow
-    ]
+    const min = sortOrderAscending[header as keyof typeof sortOrderAscending]
       ? Math.min(...values)
       : Math.max(...values);
     const range = max - min;

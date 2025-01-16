@@ -1,36 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSpreadsheetContext } from "../contexts/UseSpreadsheetContext";
 import useSheet from "../helpers/UseSheet";
-import ValueCell from "./ValueCell";
-
-const isOrderPriorityHighLow = {
-  Position: false,
-  "Draft Pos": false,
-  "FC-Score (Draft)": true,
-  "FC-Score": true,
-  Budget: true,
-  Released: true,
-  "OC-avg/slot": true,
-  "OC-avg/release": true,
-  "Released (CPK)": true,
-  "FC-avg/CPK-slot": true,
-  "Diff (draft vs final)": true,
-  "CPK-Points": true,
-};
-
-type Categories =
-  | "Position"
-  | "Draft Pos"
-  | "FC-Score (Draft)"
-  | "FC-Score"
-  | "Budget"
-  | "Released"
-  | "OC-avg/slot"
-  | "OC-avg/release"
-  | "Released (CPK)"
-  | "FC-avg/CPK-slot"
-  | "Diff (draft vs final)"
-  | "CPK-Points";
+import Rows from "./Rows";
+import { Categories, sortOrderAscending } from "../types/StandingsTypes";
 
 const Standings = () => {
   const { spreadsheet } = useSpreadsheetContext();
@@ -43,7 +15,7 @@ const Standings = () => {
       setAscending(!ascending);
       return;
     }
-    setAscending(isOrderPriorityHighLow[sortAttribute]);
+    setAscending(sortOrderAscending[sortAttribute]);
     setSortBy(sortAttribute);
   };
 
@@ -70,15 +42,7 @@ const Standings = () => {
           ))}
         </tr>
       </thead>
-      <tbody>
-        {rows?.map((row, rowIndex) => (
-          <tr key={rowIndex}>
-            {headers.map((header, index) => (
-              <ValueCell row={row} header={header} rows={rows} index={index} />
-            ))}
-          </tr>
-        ))}
-      </tbody>
+      <Rows rows={rows} headers={headers} />
     </table>
   );
 };
