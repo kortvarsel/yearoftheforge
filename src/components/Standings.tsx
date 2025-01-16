@@ -35,25 +35,26 @@ type Categories =
 const Standings = () => {
   const { spreadsheet } = useSpreadsheetContext();
   const { rows, headers } = useSheet(spreadsheet);
+  const [ascending, setAscending] = useState(true);
   const [sortBy, setSortBy] = useState<Categories>("Position");
 
   const handleSort = (sortAttribute: Categories) => {
-    console.log(sortAttribute);
+    if (sortAttribute === sortBy) {
+      setAscending(!ascending);
+      return;
+    }
+    setAscending(isOrderPriorityHighLow[sortAttribute]);
     setSortBy(sortAttribute);
   };
 
   useEffect(() => {
     rows?.sort((a, b) =>
-      isOrderPriorityHighLow[sortBy]
-        ? b[sortBy] - a[sortBy]
-        : a[sortBy] - b[sortBy],
+      ascending ? b[sortBy] - a[sortBy] : a[sortBy] - b[sortBy],
     );
-  }, [rows, sortBy]);
+  }, [rows, sortBy, ascending]);
 
   rows?.sort((a, b) =>
-    isOrderPriorityHighLow[sortBy]
-      ? b[sortBy] - a[sortBy]
-      : a[sortBy] - b[sortBy],
+    ascending ? b[sortBy] - a[sortBy] : a[sortBy] - b[sortBy],
   );
 
   if (!spreadsheet || !rows || !headers) return <>Sheet not found!</>;
