@@ -44,6 +44,8 @@ jobs:
           VITE_SHEET_OVERVIEW: ${{ secrets.VITE_SHEET_OVERVIEW }}
       - name: Build
         run: npm run build
+      - name: Create .nojekyll file
+        run: echo > dist/.nojekyll
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
