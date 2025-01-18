@@ -38,11 +38,11 @@ const ValueCell = ({
       })
       .filter((v) => !isNaN(v));
     const max = sortOrderAscending[header as keyof typeof sortOrderAscending]
-      ? Math.max(...values)
-      : Math.min(...values);
-    const min = sortOrderAscending[header as keyof typeof sortOrderAscending]
       ? Math.min(...values)
       : Math.max(...values);
+    const min = sortOrderAscending[header as keyof typeof sortOrderAscending]
+      ? Math.max(...values)
+      : Math.min(...values);
     const range = max - min;
 
     const normalizedValue = range === 0 ? 1 : (parsedValue - min) / range;

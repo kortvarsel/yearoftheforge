@@ -13,16 +13,16 @@ export type Categories =
   | "CPK-Points";
 
 export const sortOrderAscending = {
-  Position: false,
-  "Draft Pos": false,
-  "FC-Score (Draft)": true,
-  "FC-Score": true,
-  Budget: true,
-  Released: true,
-  "OC-avg/slot": true,
-  "OC-avg/release": true,
-  "Released (CPK)": true,
-  "FC-avg/CPK-slot": true,
-  "Diff (draft vs final)": true,
-  "CPK-Points": true,
+  Position: true,
+  "Draft Pos": true,
+  "FC-Score (Draft)": false,
+  "FC-Score": false,
+  Budget: false,
+  Released: false,
+  "OC-avg/slot": false,
+  "OC-avg/release": false,
+  "Released (CPK)": false,
+  "FC-avg/CPK-slot": false,
+  "Diff (draft vs final)": false,
+  "CPK-Points": false,
 };

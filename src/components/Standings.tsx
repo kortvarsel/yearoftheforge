@@ -12,7 +12,7 @@ const Standings = () => {
 
   const handleSort = (sortAttribute: Categories) => {
     if (sortAttribute === sortBy) {
-      setAscending(!ascending);
+      setAscending(ascending);
       return;
     }
     setAscending(sortOrderAscending[sortAttribute]);
