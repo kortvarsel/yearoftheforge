@@ -1,4 +1,4 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Simple workflow for deploying a Vite app to GitHub Pages
 name: Deploy static content to Pages
 
 on:
@@ -21,38 +21,52 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
+  # Single deploy job for deployment
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # Checkout the repository
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Set up Node.js environment
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
+
+      # Install dependencies
       - name: Install dependencies
         run: npm ci
+
+      # Build with environment variables
       - name: Build with environment variables
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
           VITE_DOCUMENT_KEY: ${{ secrets.VITE_DOCUMENT_KEY }}
           VITE_SHEET_OVERVIEW: ${{ secrets.VITE_SHEET_OVERVIEW }}
-      - name: Build
         run: npm run build
+
+      # Add a .nojekyll file to prevent GitHub Pages from ignoring files starting with an underscore
       - name: Create .nojekyll file
         run: echo > dist/.nojekyll
+
+      # Set up GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
+      # Upload the built content as an artifact
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist folder
           path: "./dist"
+
+      # Deploy the artifact to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
