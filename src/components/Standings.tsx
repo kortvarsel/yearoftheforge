@@ -21,12 +21,12 @@ const Standings = () => {
 
   useEffect(() => {
     rows?.sort((a, b) =>
-      ascending ? b[sortBy] - a[sortBy] : a[sortBy] - b[sortBy],
+      ascending ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy],
     );
   }, [rows, sortBy, ascending]);
 
   rows?.sort((a, b) =>
-    ascending ? b[sortBy] - a[sortBy] : a[sortBy] - b[sortBy],
+    ascending ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy],
   );
 
   if (!spreadsheet || !rows || !headers) return <>Sheet not found!</>;
