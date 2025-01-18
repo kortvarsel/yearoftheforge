@@ -10,6 +10,10 @@ const useSpreadsheet = () => {
         apiKey: import.meta.env.VITE_API_KEY as string,
       },
     );
+    console.log(
+      import.meta.env.VITE_DOCUMENT_KEY,
+      import.meta.env.VITE_API_KEY,
+    );
     await doc.loadInfo(); // loads document properties and worksheets
     setDoc(doc);
   }, []);
