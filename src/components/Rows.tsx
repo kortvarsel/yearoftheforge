@@ -12,7 +12,13 @@ const Rows = ({
     {rows?.map((row, rowIndex) => (
       <tr key={rowIndex}>
         {headers.map((header, index) => (
-          <ValueCell row={row} header={header} rows={rows} index={index} />
+          <ValueCell
+            key={`cell-header-${index}`}
+            row={row}
+            header={header}
+            rows={rows}
+            index={index}
+          />
         ))}
       </tr>
     ))}
