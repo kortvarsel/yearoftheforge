@@ -35,11 +35,10 @@ jobs:
 
       # This step ensures environment variables are available during the build
       - name: Set environment variables for Vite build
-        env:
-          VITE_API_KEY: ${{ vars.VITE_API_KEY }}
-          VITE_DOCUMENT_KEY: ${{ vars.VITE_DOCUMENT_KEY }}
-          VITE_SHEET_OVERVIEW_ID: ${{ vars.VITE_SHEET_OVERVIEW_ID }}
         run: |
+          echo "VITE_API_KEY=${{ vars.VITE_API_KEY }}" >> $GITHUB_ENV
+          echo "VITE_DOCUMENT_KEY=${{ vars.VITE_DOCUMENT_KEY }}" >> $GITHUB_ENV
+          echo "VITE_SHEET_OVERVIEW_ID=${{ vars.VITE_SHEET_OVERVIEW_ID }}" >> $GITHUB_ENV
           echo "Environment variables set"
 
       - name: Build the app
